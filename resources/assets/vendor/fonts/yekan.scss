@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+$yk-font-family: 'yekan' !default;
+$yk-font-path: 'yekan' !default;
+$yk-font-display: null !default;
+$yk-prefix: 'yk' !default;
+
+@font-face {
+  font-family: $yk-font-family;
+  font-style: normal;
+  font-weight: 400;
+  font-display: $yk-font-display;
+  src:
+    url('#{$yk-font-path}/yekan.woff') format('woff'),
+    url('#{$yk-font-path}/yekan.woff2') format('woff2'),
+    url('#{$yk-font-path}/yekan.ttf') format('truetype');
+}
+
+.yk {
+  vertical-align: middle;
+  font-size: 1.25rem;
+  line-height: 1;
+  display: inline-block;
+}
+
+.#{$yk-prefix} {
+  font-family: $yk-font-family !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
