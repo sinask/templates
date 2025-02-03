@@ -12,7 +12,7 @@ class BaseModel extends Model
   use SoftDeletes;
 
   // Prevent mass assignment restriction
-  protected $guarded = [];
+  protected $guarded = ['id'];
 
   // Define date fields
   protected $dates = ['created_at', 'updated_at', 'deleted_at'];

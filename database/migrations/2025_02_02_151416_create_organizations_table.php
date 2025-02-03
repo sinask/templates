@@ -12,16 +12,15 @@ return new class extends Migration {
   public function up(): void
   {
     Schema::create('organizations', function (Blueprint $table) {
-      $table->id();
-
+      $table->uuid('id')->primary();
       $table->string('code');
       $table->string('name');
       $table->integer('organizationType')->default(OrganizationType::Pending->value);
       $table->text('description');
       $table->boolean('isActive')->default(true);
       $table->foreignId('parent_id')->nullable()->constrained('organizations')->nullOnDelete(); // Self-referencing parent_id
-
-            $table->timestamps();
+      $table->timestamps();
+      $table->softDeletes();
     });
   }
 
