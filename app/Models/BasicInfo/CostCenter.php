@@ -2,23 +2,25 @@
 
 namespace App\Models\BasicInfo;
 
-use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Organization extends BaseModel
+class CostCenter extends Model
 {
     use HasUlids, HasFactory, SoftDeletes;
 
-    public function parent(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Organization::class, 'parent_id');
+        return $this->belongsTo(Organization::class);
     }
-  public function equipment()
-  {
-    return $this->hasMany(Equipment::class);
-  }
+
+    protected function casts(): array
+    {
+        return [
+            'isActive' => 'boolean',
+        ];
+    }
 }

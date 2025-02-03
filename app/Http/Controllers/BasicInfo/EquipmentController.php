@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BasicInfo\EquipmentRequest;
 use App\Http\Resources\BasicInfo\EquipmentResource;
 use App\Models\BasicInfo\Equipment;
+use App\Models\BasicInfo\Organization;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class EquipmentController extends Controller
@@ -15,7 +16,6 @@ class EquipmentController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Equipment::class);
-
         return EquipmentResource::collection(Equipment::all());
     }
 
@@ -38,6 +38,10 @@ class EquipmentController extends Controller
         $this->authorize('update', $equipment);
 
         $equipment->update($request->validated());
+
+
+
+
 
         return new EquipmentResource($equipment);
     }

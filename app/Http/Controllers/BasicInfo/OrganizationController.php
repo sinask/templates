@@ -3,64 +3,51 @@
 namespace App\Http\Controllers\BasicInfo;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BasicInfo\OrganizationRequest;
+use App\Http\Resources\BasicInfo\OrganizationResource;
 use App\Models\BasicInfo\Organization;
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class OrganizationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+  use AuthorizesRequests;
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+  public function index()
+  {
+    $this->authorize('viewAny', Organization::class);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    return OrganizationResource::collection(Organization::all());
+  }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Organization $organization)
-    {
-        //
-    }
+  public function store(OrganizationRequest $request)
+  {
+    $this->authorize('create', Organization::class);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Organization $organization)
-    {
-        //
-    }
+    return new OrganizationResource(Organization::create($request->validated()));
+  }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Organization $organization)
-    {
-        //
-    }
+  public function show(Organization $organization)
+  {
+    $this->authorize('view', $organization);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Organization $organization)
-    {
-        //
-    }
+    return new OrganizationResource($organization);
+  }
+
+  public function update(OrganizationRequest $request, Organization $organization)
+  {
+    $this->authorize('update', $organization);
+
+    $organization->update($request->validated());
+
+    return new OrganizationResource($organization);
+  }
+
+  public function destroy(Organization $organization)
+  {
+    $this->authorize('delete', $organization);
+
+    $organization->delete();
+
+    return response()->json();
+  }
 }
